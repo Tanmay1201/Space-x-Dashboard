@@ -1,0 +1,41 @@
+.Data_Display {
+  display: flex;
+  align-items: center;
+}
+
+.HeaderCard {
+  display: flex;
+
+  align-items: center;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+.data_table {
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 20%;
+  padding: 3%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 1%;
+}
+
+th {
+  text-align: left;
+  padding-bottom: 1%;
+}
+.Loader {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+}
