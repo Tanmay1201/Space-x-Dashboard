@@ -1,15 +1,14 @@
-import {useEffect, useMemo, useState} from "react"
+import {useEffect} from "react"
 import { connect } from "react-redux"
 import { fetchData } from "../Actions/Fetch_Launch_Data_Action"
 import { Extract_Table_Data } from "../Reducers/Fetch_Launch_Data_Reducer"
-import { COLUMNS } from './Columns'
-import {useTable} from 'react-table'
 import Loader from "react-loader-spinner";
 import Row from './Row'
+import {indexfetch} from '../Actions/Index_Selection_Action'
 import './Data_Table.css'
 
 
-const Data_Table = ({ fetchLaunchesData, filteredData, launchData }) => {
+const Data_Table = ({ fetchLaunchesData, filteredData, updateIndex }) => {
     
     useEffect(() => {
         async function fetchData() 
@@ -21,14 +20,11 @@ const Data_Table = ({ fetchLaunchesData, filteredData, launchData }) => {
         console.log(fetchData())
         console.log('This is ' + filteredData)
     }, [])
-    const columns = useMemo(() => COLUMNS, [])
-    const data = useMemo(() => filteredData, [])
-    const table_instance = useTable({
-        columns,
-        data
-    })
-
     console.log('Length' + filteredData)
+    function handleRowClick(e) {
+        console.log('Index' + e)
+        updateIndex(e)
+    }
     if (filteredData.length > 0) {
         {
             
@@ -39,18 +35,18 @@ const Data_Table = ({ fetchLaunchesData, filteredData, launchData }) => {
                             <tr>
                                 <th>No:</th>
                                 <th>Launched(UTC)</th>
-                                <th>Location</th>
-                                <th>Mission</th>
+                                <th className="Location">Location</th>
+                                <th className="Mission">Mission</th>
                                 <th>Orbit</th>
                                 <th>Launch Status</th>
-                                <th>Location</th>
+                                <th>Rocket</th>
                             </tr>
                             
                             
                          {
                              
                         filteredData && filteredData.map((data,index) => (
-                            <Row data={data} index={index}/>
+                            <Row data={data} index={index} handleClick={ handleRowClick}/>
                         ))
                                 
                             }
@@ -84,7 +80,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        fetchLaunchesData: () => dispatch(fetchData())
+        fetchLaunchesData: () => dispatch(fetchData()),
+        updateIndex: (e) => dispatch(indexfetch(e))
     }
 }
 

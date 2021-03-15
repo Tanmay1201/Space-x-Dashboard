@@ -90,5 +90,61 @@ const Extract_Table_Data = (state) => {
     return extracted_data;
 }
 
-export  {Fetch_Launch_Data, Extract_Table_Data};
+const Extract_Modal_Data = (state) => {
+    var extracted_data = []
+    var tempDataObj = null
+    var temp = state.FetchLaunchData.data
+    if (temp != null)
+    {
+        for (var i = 0; i < temp.length; i++)
+        {
+            var date = temp[i].launch_date_utc.substring(8, 10);
+            if (month_number_name_map.has(temp[i].launch_date_utc.substring(5, 7)))
+            {
+                date += ' '+month_number_name_map.get(temp[i].launch_date_utc.substring(5, 7))    
+            }
+            date += ' '+temp[i].launch_date_utc.substring(0, 4)
+            date += ' '+temp[i].launch_date_utc.substring(11, 16)
+
+            var launchStatus = '';
+            if (temp[i].upcoming === false)
+            {
+                if (temp[i].launch_success === false)  
+                {
+                    launchStatus = 'Failed'
+                }    
+                else
+                {
+                    launchStatus = 'Success'    
+                }
+            }
+            else
+            {
+                launchStatus = 'Upcoming'    
+            }
+            tempDataObj = {
+                launch_status: launchStatus,
+                wikipedia_link: temp[i].links.wikipedia,
+                article_link: temp[i].links.article_link,
+                video_link: temp[i].links.video_link,
+                details: temp[i].details,
+                flight_number: temp[i].flight_number,
+                mission_name: temp[i].mission_name,
+                rocket_type: temp[i].rocket.rocket_type,
+                rocket_name: temp[i].rocket.rocket_name,
+                manufacturer: temp[i].rocket.second_stage.payloads[0].manufacturer,
+                nationality: temp[i].rocket.second_stage.payloads[0].nationality,
+                launch_date_utc: date,
+                payload_type: temp[i].rocket.second_stage.payloads[0].payload_type,
+                orbit: temp[i].rocket.second_stage.payloads[0].orbit,
+                launch_site: temp[i].launch_site.site_name
+                
+            }
+            extracted_data.push(tempDataObj)
+        }
+    }
+    return extracted_data;
+}
+
+export  {Fetch_Launch_Data, Extract_Table_Data, Extract_Modal_Data};
 
