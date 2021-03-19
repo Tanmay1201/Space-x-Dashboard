@@ -16,10 +16,9 @@ table {
 }
 
 .data_table {
-  margin-top: 5%;
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-bottom: 20%;
+  margin-top: 2%;
+  margin-left: 15%;
+  margin-right: 15%;
   background-color: #f0f0f5;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -37,4 +36,41 @@ th {
 .Location,
 .Mission {
   text-align: left;
+}
+
+.Paginate {
+  padding: 1%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.Filters {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1%;
+}
+
+.pagination {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border: 1px solid #ebebe0;
+}
+.pageNumber {
+  color: black;
+}
+.forwardPage {
+  color: black;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border: 1px solid #ebebe0;
 }

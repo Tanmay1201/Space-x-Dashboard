@@ -33,12 +33,12 @@ const Row = ({ data, index, handleClick }) => {
         }
     }
     function handleClickRow(e) {
-        handleClick(index)
+        handleClick(data.number -1)
     }
     return (
         <>
             <tr onClick={handleClickRow} className="Row">
-                <td>{index + 1}</td>
+                <td>{data.number}</td>
                 <td>{data.launch_date_utc}</td>
                 <td id="location">{data.location}</td>
                 <td id="mission">{data.mission_name}</td>

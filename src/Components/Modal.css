@@ -11,7 +11,7 @@
   position: fixed;
   background: white;
   width: 40%;
-  height: 85%;
+  height: 90%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -40,7 +40,7 @@
 }
 
 .Mission_Name {
-  font-size: 27px;
+  font-size: 22px;
   color: #000000;
   font-family: Georgia, "Times New Roman", Times, serif;
   padding: 1%;
@@ -50,13 +50,13 @@
   display: flex;
   justify-content: left;
 
-  font-size: 19px;
+  font-size: 14px;
   color: #595959;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
   margin-left: 4%;
   height: 15px;
-  width: 15%;
+  width: 20%;
 }
 
 .Status,
@@ -84,10 +84,14 @@ button {
   font-family: cursive;
 }
 .Description {
-  margin: 3%;
+  margin-top: 2%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-bottom: 2%;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   font-style: initial;
+  font-size: 12px;
 }
 a:link {
   color: #33ccff;
@@ -102,6 +106,7 @@ a:visited {
   justify-items: stretch;
   margin-left: 4%;
   width: 50%;
+  font-size: 12px;
 }
 hr {
   margin-top: 1%;
@@ -114,25 +119,33 @@ hr {
 }
 .DataPayload > .RocketTypeValue {
   padding-left: 24%;
+  font-size: 12px;
 }
 .DataPayload > .RocketNameValue {
   padding-left: 21%;
+  font-size: 12px;
 }
 .DataPayload > .ManufacturerValue {
   padding-left: 21%;
+  font-size: 12px;
 }
 .DataPayload > .NationalityValue {
   padding-left: 26%;
+  font-size: 12px;
 }
 .DataPayload > .LaunchDateValue {
   padding-left: 23%;
+  font-size: 12px;
 }
 .DataPayload > .PayloadValue {
   padding-left: 22%;
+  font-size: 12px;
 }
 .DataPayload > .OrbitValue {
   padding-left: 37%;
+  font-size: 12px;
 }
 .DataPayload > .LaunchSiteValue {
   padding-left: 25%;
+  font-size: 12px;
 }

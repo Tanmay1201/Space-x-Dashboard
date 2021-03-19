@@ -77,6 +77,7 @@ const Extract_Table_Data = (state) => {
                 launchStatus = 'Upcoming'    
             }
             tempDataObj = {
+                number: i+1,
                 mission_name: temp[i].mission_name,
                 launch_date_utc: date,
                 location: temp[i].launch_site.site_name,

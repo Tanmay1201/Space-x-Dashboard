@@ -4,7 +4,6 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import BookIcon from '@material-ui/icons/Book';
 import { indexfetch } from '../Actions/Index_Selection_Action'
-
 import './Modal.css'
 
 const Modal = ({ index_data, launch_description, updateIndex }) => {
