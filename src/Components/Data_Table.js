@@ -2,155 +2,193 @@ import {useEffect, useState} from "react"
 import { connect } from "react-redux"
 import { fetchData } from "../Actions/Fetch_Launch_Data_Action"
 import { Extract_Table_Data } from "../Reducers/Fetch_Launch_Data_Reducer"
-import Loader from "react-loader-spinner";
-
-//import Pagination from './Pagination'
 import Filters from './Filters'
-import Row from './Row'
+import {fetchDataByStatus, getDateFilteredData} from './DataTableService'
+import DataTableHelper from './DataTableHelper'
 import { indexfetch } from '../Actions/Index_Selection_Action'
-import Pagination from  'react-router-pagination'
 import './Data_Table.css'
+import Loader from '../Components/Loader'
+import queryString from 'query-string'
 
 var statusMap = new Map();
 statusMap.set('Upcoming Launches', 'Upcoming')
 statusMap.set('Successful Launches', 'Success') 
 statusMap.set('Failed Launches', 'Failed') 
 
-const Data_Table = ({ fetchLaunchesData, filteredData, updateIndex }) => {
+const Data_Table = (props) => {
     
-    const [currentRecords, setcurrentRecords] = useState([])
-    const [manualFilteredData, setManualFiltereData] = useState([])
-    const [statusFilter, setstatusFilter] = useState('')
+    
     useEffect(() => {
         async function fetchData() 
         {
             fetchLaunchesData();
         }
-        
         fetchData()
-        console.log(fetchData())
-        console.log('This is ' + filteredData)
     }, [])
-    console.log('Length' + filteredData)
-    function handleRowClick(e) {
-        console.log('Index' + e)
-        updateIndex(e)
-    }
-    function onPageChanged(data) {
-        const { currentPage, totalPages, pageLimit } = data;
-        const offset = (currentPage - 1) * pageLimit;
-        console.log({ statusFilter })
-        
-        if (statusFilter == '') 
-        {
-            const currentRecords = filteredData.slice(offset, offset + pageLimit);
-            setcurrentRecords(currentRecords)
-        }
-        else if (statusFilter == 'Upcoming Launches')
-        {
-            console.log(statusFilter)
-            setcurrentRecords(statusFilteredData(filteredData, offset, pageLimit, 'Upcoming'))
-        }
-        else if (statusFilter == 'Successful Launches')
-        {
-            setcurrentRecords(statusFilteredData(filteredData, offset, pageLimit, 'Success'))
-        }
-        else
-        { 
-            setcurrentRecords(statusFilteredData(filteredData, offset, pageLimit, 'Failed'))
-        }
-        
-    }
-    function statusFilteredData(filteredData, offset, pageLimit, filter)
+    
+    let status = ''
+    let currentRecords = []
+    let match = ''
+    let { fetchLaunchesData, filteredData, updateIndex } = props
+    let successfulLaunches = []
+    let failedLaunches = []
+    let upcomingLaunches = []
+    let totalPages = 1
+
+    const values = queryString.parse(props.location.search)
+    const[daterangeFilter, setDateRangeFilter] = useState((values.daterange !== undefined) ? values.daterange : '')
+    const [pageLimit] = useState(10)
+    const [currentPage, setCurrentPage] = useState((values.pageNumber !==  undefined) ? values.pageNumber : 1)
+    const [offSet, setoffSet] = useState((currentPage - 1) * pageLimit)
+    const [statusFilter, setstatusFilter] = useState('')
+    
+    if (values.status !== undefined)
     {
-        const tempData = [];
-        for (var i = 0; i < filteredData.length; i++)
-        {
-            if (filteredData[i].launch_status === filter)
-            {
-                tempData.push(filteredData[i])
-            }    
-        }
-        console.log(tempData)
-        return(tempData.slice(offset, offset + pageLimit))
+        status = values.status    
     }
 
-    function FilterData(value)
+    console.log(daterangeFilter)
+
+    if (filteredData.length > 0) 
     {
-        /*console.log('This is filter' + value)
-        if (value !== '') {
-            const newStatus = { statusFilter: value };
-        setstatusFilter(newStatus); 
-        var statusEquivalent;
-        console.log('This is status'+ newStatus)
-        if (statusMap.has(value))
+        successfulLaunches = fetchDataByStatus(filteredData, 'Success');
+        failedLaunches = fetchDataByStatus(filteredData, 'Failed');
+        upcomingLaunches = fetchDataByStatus(filteredData, 'Upcoming');   
+    }
+    
+    console.log(daterangeFilter)
+    if (status === '' && daterangeFilter === '')
+    {
+        if (filteredData.length > 0)
         {
-            statusEquivalent = statusMap.get(value)    
+            currentRecords = (filteredData.slice(offSet, offSet + pageLimit))  
+            totalPages = filteredData.length / pageLimit + 1
         }
-        console.log(statusEquivalent)
-        const tempcurrentRecords = []
-        for (var i = 0; i < filteredData.length; i++)
+        match = {
+            path: `/data?pageNumber=${currentPage}`,
+            params: {
+                statusFilter: ''
+            }
+        }
+    }
+    else if(status !== '' && daterangeFilter === '')
+    {
+        if (filteredData.length > 0 && status === 'Upcoming Launches') 
         {
-            if (filteredData[i].launch_status === statusEquivalent)
+            currentRecords = (upcomingLaunches.slice(offSet, offSet + pageLimit))  
+            totalPages = upcomingLaunches.length / pageLimit + 1
+        }
+        else if (filteredData.length > 0 && status === 'Successful Launches') 
+        {
+            currentRecords = (successfulLaunches.slice(offSet, offSet + pageLimit))  
+            totalPages = successfulLaunches.length / pageLimit + 1
+        }
+        else if (filteredData.length > 0 && status === 'Failed Launches') 
+        {
+            currentRecords = (failedLaunches.slice(offSet, offSet + pageLimit))
+            totalPages = failedLaunches.length / pageLimit
+        }
+        match = {
+            path: `/data?status=${status}&pageNumber=${currentPage}`,
+            params: {
+                statusFilter: statusFilter
+            }
+        }
+    }
+    else if((status === '' || status === 'None') && daterangeFilter !== '')
+    {
+        let tempData = getDateFilteredData(filteredData, daterangeFilter, null)
+        if (tempData.length > 0)
+        {
+            currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
+            totalPages = tempData.length / pageLimit + 1    
+        }
+        match = {
+            path: `/data?daterange=${daterangeFilter}&pageNumber=${currentPage}`,
+            params: {
+                daterange: daterangeFilter
+            }
+        }
+    }
+    else if(status !== '' && daterangeFilter !== '')
+    {
+        if (filteredData.length > 0 && status === 'Upcoming Launches') 
+        {
+            let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Upcoming')
+            if (tempData.length > 0)
             {
-                console.log(filteredData[i])
-                tempcurrentRecords.push(filteredData[i])
-            }    
+                currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
+                totalPages = tempData.length / pageLimit + 1    
+            }
         }
-        console.log(tempcurrentRecords)
-        setcurrentRecords(tempcurrentRecords)
+        else if (filteredData.length > 0 && status === 'Successful Launches') 
+        {
+            let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Success')
+            currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
+            totalPages = tempData.length / pageLimit + 1
         }
-        else {
-            setcurrentRecords(filteredData)
-            <Pagination totalRecords={filteredData.length} pageLimit={12} pageNeighbours={1} onPageChanged={onPageChanged} />
-        }*/
+        else if (filteredData.length > 0 && status === 'Failed Launches') 
+        {
+            let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Failed')
+            currentRecords = (tempData.slice(offSet, offSet + pageLimit))
+            totalPages = tempData.length / pageLimit + 1
+        }
+        match = {
+            path: `/data?daterange=${daterangeFilter}&status=${status}&pageNumber=${currentPage}`,
+            params: {
+                daterange: daterangeFilter,
+                statusFilter: statusFilter
+            }
+        }
+    }
+
+    function FilterData(dataRangeFilter, statusFilter)
+    {
+        setoffSet(0)
+        if (dataRangeFilter == null && statusFilter != null)
+        {
+            setstatusFilter(statusFilter)
+        }
+        else if (dataRangeFilter != null && statusFilter == null)
+        {
+            setDateRangeFilter(dataRangeFilter)       
+        }
+        else
+        {
+            setstatusFilter(statusFilter)
+            setDateRangeFilter(dataRangeFilter) 
+        }
+    }
+
+    function handlePageChange(page)
+    {
+        console.log(page)
+        
+        var tempOffSet = (page - 1) * pageLimit
+        console.log(tempOffSet)
+        setCurrentPage(page)
+        setoffSet(tempOffSet)
         
     }
-    console.log('Data'+currentRecords)
     if (filteredData.length > 0) {
-        {
-            return (
-                <div>
-                    <Filters FilterData={ FilterData}/>
-                    <div className="data_table">
-                        <table>
-                            <tr>
-                                <th>No:</th>
-                                <th>Launched(UTC)</th>
-                                <th className="Location">Location</th>
-                                <th className="Mission">Mission</th>
-                                <th>Orbit</th>
-                                <th>Launch Status</th>
-                                <th>Rocket</th>
-                            </tr>   
-                            {
-                                
-                            filteredData && filteredData.map((data,index) => (
-                                <Row data={data} index={index} handleClick={ handleRowClick}/>
-                            ))
-                                    
-                            }
-                        </table>   
-                    </div>
-                    <div className='Paginate'>
-                        <Pagination totalPages={12} pageNumber={2} spread={4} format='center'/>
-                    </div>
-                </div>
-            )
-        }
+        return (
+            <div>
+                <Filters FilterData={FilterData}/>
+                {currentRecords.length > 0} ? <DataTableHelper records={currentRecords} handlePageChange={handlePageChange} filter={status} totalPages={totalPages} match={ match} currentpage={currentPage}/> : <p></p>
+            </div>
+            
+        )
     }
     else {
         return (
             <div className="Loader">
-                <Loader 
-                    type="BallTriangle"
-                    color="#005288"
-                    height={100}
-                    width={100} 
-                    />
+                <Loader />
+                
             </div>
         );
-    }    
+
+    }
+    
 }
 
 const mapStateToProps = state => {

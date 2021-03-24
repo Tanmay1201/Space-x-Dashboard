@@ -9,3 +9,8 @@ td {
 #mission {
   text-align: left;
 }
+
+#EmptyData {
+  text-align: center;
+  color: Red;
+}

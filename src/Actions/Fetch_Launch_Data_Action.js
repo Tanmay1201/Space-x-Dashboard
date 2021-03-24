@@ -29,8 +29,8 @@ export const fetchData = () => {
             dispatch(dataFetchSuccess(data))
         })
             .catch(error => {
-        var error = error.message
-            dispatch(dataFetchFailure(error))
+        var errors = error.message
+            dispatch(dataFetchFailure(errors))
         })   
     }
 }

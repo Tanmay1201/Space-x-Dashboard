@@ -1,0 +1,35 @@
+.Calender {
+  display: flex;
+  justify-content: space-around;
+  width: 15%;
+  border-radius: 45%;
+  cursor: pointer;
+}
+
+.StatusFilter {
+  width: 20%;
+  display: flex;
+}
+
+#statusselect {
+  width: 150%;
+}
+
+#calenderIcon {
+  margin-top: 13%;
+}
+
+#launchIcon {
+  margin-top: 16%;
+}
+
+#statusIcon {
+  margin-top: 6%;
+}
+
+#name {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 14px;
+  margin-top: 15%;
+  margin-left: 2%;
+}

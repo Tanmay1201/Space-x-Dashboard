@@ -4,21 +4,25 @@ import Data_Table from "./Components/Data_Table"
 import Store from "./Store/Store"
 import Modal from '../src/Components/Modal'
 import {
-  Route,
+  BrowserRouter, Route, Switch,
 } from 'react-router-dom'
-import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from "react-redux"
 function App() {
+  /*
+  
+            <Route exact path='/data/status/:status' component={Data_Table} />
+            <Route exact path='/data/status/:status/:pageNumber' component={Data_Table} />
+            */
   return (
-     <Router>
-      <Provider store={Store}>
+    <Provider store={Store}>
+      <BrowserRouter>
         <Header />
-        <Route path='/' component={Data_Table} />
-        <Route path=':page' component={Data_Table} />
-          
-          <Modal />
-      </Provider>
-    </Router>
+          <Switch>
+            <Route path={'/data'} component={Data_Table} />
+          </Switch>
+        <Modal />
+    </BrowserRouter>
+    </Provider>
   );
 }
 

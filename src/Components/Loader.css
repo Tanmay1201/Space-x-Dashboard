@@ -1,0 +1,502 @@
+.logo {
+  position: absolute;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/d/de/SpaceX-Logo.svg")
+    no-repeat;
+  width: 40px;
+  height: 40px;
+  margin-top: 5px;
+  margin-left: 50px;
+  transform: scale(0.5) rotate(-90deg);
+}
+
+#usa {
+  left: 0;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/8/87/US_flag_49_stars.svg")
+    no-repeat;
+  background-size: 100%;
+}
+
+#logo-s {
+  left: 25px;
+  background-position: 0px 0px;
+}
+
+#logo-p {
+  left: 50px;
+  background-position: -47px 0px;
+}
+
+#logo-a {
+  left: 75px;
+  background-position: -85px 0px;
+}
+
+#logo-c {
+  left: 100px;
+  background-position: -132px 0px;
+}
+
+#logo-e {
+  left: 125px;
+  background-position: -178px 0px;
+}
+
+#logo-x {
+  width: 60px;
+  left: 145px;
+  background-position: -222px 0px;
+}
+
+#reusable-rocket {
+  z-index: 1;
+  position: absolute;
+  bottom: 600px;
+  margin-left: -150px;
+  left: 50%;
+  width: 300px;
+  height: 50px;
+  animation: maneuver 5s infinite 0s alternate;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,ffffff+30,ffffff+70,e2e2e2+100 */
+  background: rgb(226, 226, 226); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(226, 226, 226, 1) 0%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(226, 226, 226, 1) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(226, 226, 226, 1) 0%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(226, 226, 226, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    rgba(226, 226, 226, 1) 0%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 70%,
+    rgba(226, 226, 226, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#e2e2e2',GradientType=1 ); /* IE6-9 */
+}
+
+#reusable-rocket:before {
+  position: absolute;
+  left: -5px;
+  content: "";
+  width: 5px;
+  height: 50px;
+  background-color: rgb(226, 226, 226);
+  border-radius: 50% 0 0 50%;
+}
+
+#reusable-rocket:after {
+  position: absolute;
+  right: 0px;
+  content: "";
+  width: 5px;
+  height: 50px;
+  background-color: rgb(205, 212, 212);
+  border-radius: 0 15% 15% 0;
+}
+
+.nitrogen-thruster {
+  position: absolute;
+  left: 10px;
+  width: 1px;
+  height: 1px;
+  background-color: rgb(100, 100, 100);
+  border-radius: 50%;
+}
+
+#l-thruster {
+  top: 2px;
+}
+
+#l-thruster:after {
+  position: absolute;
+  top: -105px;
+  left: -7px;
+  content: "";
+  width: 15px;
+  height: 100px;
+  filter: blur(5px);
+  border-radius: 50%;
+  opacity: 0;
+  animation: fire_l_thruster 5s infinite 0s alternate;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ededed+55,ededed+75,ffffff+98 */
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+#m-thruster {
+  top: 25px;
+  margin-top: -0.5px;
+}
+
+#r-thruster {
+  bottom: 2px;
+}
+
+#r-thruster:after {
+  position: absolute;
+  bottom: -105px;
+  left: -7.5px;
+  content: "";
+  width: 15px;
+  height: 100px;
+  filter: blur(5px);
+  border-radius: 50%;
+  opacity: 0;
+  animation: fire_r_thruster 5s infinite 0s alternate;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ededed+55,ededed+75,ffffff+98 */
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 237, 237, 1) 55%,
+    rgba(237, 237, 237, 1) 75%,
+    rgba(255, 255, 255, 1) 98%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+}
+
+.grid-fin {
+  content: "";
+  position: absolute;
+  left: 20px;
+  width: 15px;
+  height: 10px;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAI0lEQVQYV2M8e+XKf2MdHUYGKADxwRyYBIxGUQHTgV0lNjMBI3si7t4b5BMAAAAASUVORK5CYII=)
+    repeat;
+  border: 1px solid rgb(205, 212, 212);
+  border-radius: 45% 0 0 45%;
+  transform-origin: left center;
+  animation: adjust_fin 5s infinite 0s alternate;
+}
+
+.grid-fin:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  background-color: rgb(205, 212, 212);
+  width: 2px;
+  height: 4px;
+  margin-top: 2.5px;
+  margin-left: -2.5px;
+}
+
+#l-fin {
+  top: 7px;
+  transform: rotateX(25deg);
+}
+
+#r-fin {
+  bottom: 7px;
+  transform: rotateX(-25deg);
+}
+
+.hydraulic-ram {
+  z-index: 1;
+  position: absolute;
+  right: 25px;
+  width: 25px;
+  height: 5px;
+  border-radius: 0 20% 20% 0;
+  background-color: rgb(117, 117, 117);
+}
+
+.landing-leg {
+  position: absolute;
+  z-index: 1;
+  right: 0px;
+  width: 50px;
+  height: 5px;
+  background-color: rgb(117, 117, 117);
+  border-radius: 25%;
+}
+
+#l-hydraulic {
+  transform-origin: right center;
+  animation: l_hydraulic_ram 5s infinite 0s alternate;
+  animation-timing-function: cubic-bezier(0.27, 0.27, 0.1, 1);
+}
+
+#l-leg {
+  right: 2.5px;
+  transform-origin: right center;
+  animation: l_landing_leg 5s infinite 0s alternate;
+}
+
+#m-hydraulic {
+  top: 22.5px;
+  transform-origin: right center;
+  animation: m_hydraulic_ram 5s infinite 0s alternate;
+  animation-timing-function: cubic-bezier(0.27, 0.27, 0.1, 1);
+}
+
+#m-leg {
+  top: 22.5px;
+  right: 2.5px;
+  transform-origin: right center;
+  animation: m_landing_leg 5s infinite 0s alternate;
+}
+
+#r-hydraulic {
+  bottom: 0px;
+  transform-origin: right center;
+  animation: r_hydraulic_ram 5s infinite 0s alternate;
+  animation-timing-function: cubic-bezier(0.27, 0.27, 0.1, 1);
+}
+
+#r-leg {
+  bottom: 0px;
+  right: 2.5px;
+  transform-origin: right center;
+  animation: r_landing_leg 5s infinite 0s alternate;
+}
+
+.merlin-engine {
+  position: absolute;
+  right: -10px;
+  width: 10px;
+  height: 16px;
+  background-color: rgb(97, 97, 97);
+  border-radius: 40% 0 0 40%;
+}
+
+#l-engine {
+  top: 0px;
+}
+
+#m-engine {
+  top: 17px;
+}
+
+#m-engine:after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  width: 150px;
+  top: -22.5px;
+  height: 60px;
+  border-radius: 50% 0 0 50%;
+  filter: blur(2px);
+  animation: fire_engine 5s infinite 0s alternate;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,ea3f3f+45,ea0000+69,ffffff+100 */
+  background: rgb(255, 255, 255); /* Old browsers */
+  background: -moz-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(234, 63, 63, 0.5) 45%,
+    rgba(234, 0, 0, 0.5) 69%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(234, 63, 63, 0.5) 45%,
+    rgba(234, 0, 0, 0.5) 69%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(234, 63, 63, 0.5) 45%,
+    rgba(234, 0, 0, 0.5) 69%,
+    rgba(255, 255, 255, 0) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+}
+
+#r-engine {
+  bottom: 0px;
+}
+
+#barge {
+  z-index: 0;
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  margin-left: -100px;
+  width: 200px;
+  height: 100px;
+  background-color: rgb(219, 219, 219);
+  transform-origin: center top;
+  transform: perspective(200px) rotateX(45deg);
+}
+
+#barge-circle {
+  position: absolute;
+  top: 25px;
+  left: 45px;
+  width: 100px;
+  height: 50px;
+  border: 5px solid rgb(243, 181, 74);
+  border-radius: 50%;
+}
+
+@keyframes fire_l_thruster {
+  50% {
+    opacity: 0;
+  }
+  51% {
+    opacity: 1;
+  }
+  52% {
+    opacity: 0;
+  }
+  53% {
+    opacity: 1;
+  }
+  54% {
+    opacity: 0;
+  }
+}
+
+@keyframes fire_r_thruster {
+  50% {
+    opacity: 0;
+  }
+  55% {
+    opacity: 1;
+  }
+  57% {
+    opacity: 0;
+  }
+}
+
+@keyframes adjust_fin {
+  25% {
+    transform: rotateY(-80deg);
+  }
+  50% {
+    transform: rotate(45deg) rotateY(-80deg);
+  }
+  75% {
+    transform: rotate(45deg) rotateY(-80deg);
+  }
+  80% {
+    transform: rotateY(-80deg);
+  }
+  100% {
+    transform: rotate(0deg) rotateY(0deg);
+  }
+}
+
+@keyframes l_landing_leg {
+  100% {
+    transform: rotate(140deg);
+  }
+}
+
+@keyframes l_hydraulic_ram {
+  100% {
+    width: 69.5px;
+    transform: rotate(150deg);
+  }
+}
+
+@keyframes m_landing_leg {
+  100% {
+    transform: rotateY(140deg);
+  }
+}
+
+@keyframes m_hydraulic_ram {
+  100% {
+    width: 69.5px;
+    transform: rotateY(150deg);
+  }
+}
+
+@keyframes r_landing_leg {
+  100% {
+    transform: rotate(-140deg);
+  }
+}
+
+@keyframes r_hydraulic_ram {
+  100% {
+    width: 69.5px;
+    transform: rotate(-150deg);
+  }
+}
+
+@keyframes fire_engine {
+  0% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0;
+  }
+  97% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 0;
+  }
+  94% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: -2.5px;
+    height: 20px;
+    width: 50px;
+  }
+}
+
+@keyframes maneuver {
+  0% {
+    transform: rotate(75deg);
+  }
+  95% {
+    bottom: 200px;
+    transform: rotate(90deg);
+  }
+  100% {
+    bottom: 200px;
+    transform: rotate(90deg);
+  }
+}
