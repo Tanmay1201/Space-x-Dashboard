@@ -9,6 +9,7 @@
 .StatusFilter {
   width: 20%;
   display: flex;
+  margin-right: 1%;
 }
 
 #statusselect {

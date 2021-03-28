@@ -129,7 +129,7 @@ const Data_Table = (props) => {
         if (tempData.length > 0)
         {
             currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
-            totalPages = tempData.length / pageLimit + 1    
+            totalPages = Math.ceil(tempData.length / pageLimit)  
         }
         let initialValueToSet;
         if (daterangeFilter.startDate !== null)

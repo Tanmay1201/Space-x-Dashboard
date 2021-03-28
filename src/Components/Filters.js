@@ -1,9 +1,8 @@
 import {useState} from 'react'
 import FilterListOutlinedIcon from '@material-ui/icons/FilterListOutlined';
 import CalendarTodayOutlinedIcon from '@material-ui/icons/CalendarTodayOutlined';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import NativeSelect from '@material-ui/core/NativeSelect';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from "react-router-dom";
@@ -145,26 +144,25 @@ const Filters = (props) => {
                             <DateFilter openModal={openModal} closeModal={closeModal} handleDateFilter={handleDateFilter} handleCustomRange={handleCustomRange }></DateFilter>
                         </div>
                         <div className='StatusFilter'>
-                            <FilterListOutlinedIcon fontSize='large' color='action' id='statusIcon'/>
+                <FilterListOutlinedIcon fontSize='large' color='action' id='statusIcon' />
+                
                             <FormControl className={classes.formControl}>
-                                <InputLabel id="demo-simple-select-placeholder-label-label">
-                                    All Launches
+                                <InputLabel shrink htmlFor="age-native-label-placeholder">
+                        All Launches
                                 </InputLabel>
-                                <Select
-                                labelId="demo-simple-select-placeholder-label-label"
-                                id="demo-simple-select-placeholder-label"
-                                value={values.status}
-                                onChange={handleChange}
-                                displayEmpty
-                                className={classes.selectEmpty}
-                                >
-                                <MenuItem value="">
-                                    <em>None</em>
-                                </MenuItem>
-                                <MenuItem value={'Upcoming Launches'}>Upcoming Launches</MenuItem>
-                                <MenuItem value={'Successful Launches'}>Successful Launches</MenuItem>
-                                <MenuItem value={'Failed Launches'}>Failed Launches</MenuItem>
-                                </Select>
+                                <NativeSelect
+                                    value={values.status}
+                                    onChange={handleChange}
+                                    inputProps={{
+                                        name: 'status',
+                                        id: 'age-native-label-placeholder',
+                                    }}
+                    >
+                        <option value="">None</option>
+                        <option value={'Upcoming Launches'}>Upcoming Launches</option>
+                                <option value={'Successful Launches'}>Successful Launches</option>
+                                <option value={'Failed Launches'}>Failed Launches</option>
+                                </NativeSelect>
                             </FormControl>
                         </div>
         </div>
