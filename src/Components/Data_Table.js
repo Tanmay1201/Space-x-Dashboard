@@ -6,9 +6,9 @@ import Filters from './Filters'
 import {fetchDataByStatus, getDateFilteredData} from './DataTableService'
 import DataTableHelper from './DataTableHelper'
 import { indexfetch } from '../Actions/Index_Selection_Action'
-import './Data_Table.css'
 import Loader from '../Components/Loader'
 import queryString from 'query-string'
+import './Data_Table.css'
 
 let statusMap = new Map();
 statusMap.set('Upcoming Launches', 'Upcoming')
@@ -21,7 +21,7 @@ const Data_Table = (props) => {
     useEffect(() => {
         const timer =setTimeout(() => {
             fetchLaunchesData();
-        }, 4500); 
+        }, 4300); 
         return () => clearTimeout(timer);
     }, [])
     
