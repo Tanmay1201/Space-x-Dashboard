@@ -8,11 +8,6 @@ import {
 } from 'react-router-dom'
 import { Provider } from "react-redux"
 function App() {
-  /*
-  
-            <Route exact path='/data/status/:status' component={Data_Table} />
-            <Route exact path='/data/status/:status/:pageNumber' component={Data_Table} />
-            */
   return (
     <Provider store={Store}>
       <BrowserRouter>

@@ -23,7 +23,7 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     color: 'Red',
                     padding: '4%',
                     height: '17px',
-                    fontSize: '15px'
+                    fontSize: 'medium'
                 }
             }
             else  if (launch_description[index_data].launch_status === 'Success')
@@ -34,7 +34,7 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     color: '#009900',
                     padding: '4%',
                     height: '17px',
-                    fontSize: '15px'
+                    fontSize: 'medium'
                 }
             }
             else {
@@ -44,7 +44,7 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     color: '#ffad33',
                     padding: '4%',
                     height: '17px',
-                    fontSize: '15px'
+                    fontSize: 'medium'
                 }
             }   
         }

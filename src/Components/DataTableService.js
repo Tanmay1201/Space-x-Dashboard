@@ -1,4 +1,4 @@
-var DaysNumberMap = new Map();
+let DaysNumberMap = new Map();
 DaysNumberMap.set('Past Week', 7)
 DaysNumberMap.set('Past Month', 30) 
 DaysNumberMap.set('Past 3 Months', 90) 
@@ -6,7 +6,7 @@ DaysNumberMap.set('Past 6 Months', 180)
 DaysNumberMap.set('Past Year', 365) 
 DaysNumberMap.set('Past 2 Years', 365*2) 
 
-var month_number_name_map = new Map();
+let month_number_name_map = new Map();
 month_number_name_map.set('Jan', '01')
 month_number_name_map.set('Feb', '02') 
 month_number_name_map.set('Mar', '03') 
@@ -21,8 +21,8 @@ month_number_name_map.set('Nov', '11')
 month_number_name_map.set('Dev', '12') 
 
 export const fetchDataByStatus = (data, filter) => {
-    var tempData = []
-    for (var i = 0; i < data.length; i++)
+    let tempData = []
+    for (let i = 0; i < data.length; i++)
     {
         if (data[i].launch_status === filter)
         {
@@ -33,48 +33,81 @@ export const fetchDataByStatus = (data, filter) => {
 }
 
 export const getDateFilteredData = (filteredData, dateFilter, statusfilter) => {
-    var tempData = []
-    var days = DaysNumberMap.get(dateFilter)
-    console.log('This is days' + days)
-    var date = new Date();
-    date.setDate(date.getDate() - days);
-    var endDate = new Date(date.toISOString().split('T')[0]);
-    console.log('this is enddate' + endDate)
-    if (filteredData.length > 0)
+    let tempData = []
+    console.log(dateFilter)
+    if (dateFilter.staticDate != null && dateFilter.startDate == null && dateFilter.endDate == null)
     {
-        console.log(statusfilter)
-        if (statusfilter === null)
+        let days = DaysNumberMap.get(dateFilter.staticDate)
+        let date = new Date();
+        date.setDate(date.getDate() - days);
+        let end_Date = new Date(date.toISOString().split('T')[0]);
+        if (filteredData.length > 0)
         {
-            for (var i = 0; i < filteredData.length; i++)
+            if (statusfilter === null)
             {
-                let res = filteredData[i].launch_date_utc.split(" ");
-                console.log('this is status date' + res)
-                let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
-                console.log('this is tempstringdate' + tempStringDate)
-                let currentdate = new Date(tempStringDate);
-                console.log('this is current date' + currentdate)
-                if (currentdate > endDate)
+                for (let i = 0; i < filteredData.length; i++)
                 {
-                    tempData.push(filteredData[i])
+                    let res = filteredData[i].launch_date_utc.split(" ");
+                    let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
+                    let currentdate = new Date(tempStringDate);
+                    if (currentdate > end_Date)
+                    {
+                        tempData.push(filteredData[i])
+                    }
                 }
             }
-        }
-        else
-        {
-            for (var i = 0; i < filteredData.length; i++)
+            else
             {
-                let res = filteredData[i].launch_date_utc.split(" ");
-                console.log('this is status date' + res)
-                let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
-                console.log('this is tempstringdate' + tempStringDate)
-                let currentdate = new Date(tempStringDate);
-                console.log('this is current date' + currentdate)
-                if (currentdate > endDate && filteredData[i].launch_status === statusfilter)
+                for (let i = 0; i < filteredData.length; i++)
                 {
-                    tempData.push(filteredData[i])
+                    let res = filteredData[i].launch_date_utc.split(" ");
+                    let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
+                    let currentdate = new Date(tempStringDate);
+                    if (currentdate > end_Date && filteredData[i].launch_status === statusfilter)
+                    {
+                        tempData.push(filteredData[i])
+                    }
                 }
             }
+        }      
+    }
+    else 
+    {
+        if (dateFilter !== undefined)
+        {
+            let start_Date = new Date(dateFilter.startDate)
+            let end_Date = new Date(dateFilter.endDate)
+            if (filteredData.length > 0)
+            {
+                if (statusfilter === null)
+                {
+                    for (let i = 0; i < filteredData.length; i++)
+                    {
+                        let res = filteredData[i].launch_date_utc.split(" ");
+                        let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
+                        let currentdate = new Date(tempStringDate);
+                        if (currentdate < end_Date && currentdate > start_Date)
+                        {
+                            tempData.push(filteredData[i])
+                        }
+                    }
+                }
+                else
+                {
+                    for (let i = 0; i < filteredData.length; i++)
+                    {
+                        let res = filteredData[i].launch_date_utc.split(" ");
+                        let tempStringDate = res[2] + '-' + month_number_name_map.get(res[1]) + '-' + res[0]
+                        let currentdate = new Date(tempStringDate);
+                        if (currentdate < end_Date && currentdate > start_Date && filteredData[i].launch_status === statusfilter)
+                        {
+                            tempData.push(filteredData[i])
+                        }
+                    }
+                }
+            }    
         }
+               
     }
     return tempData
 }

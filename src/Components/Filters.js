@@ -25,13 +25,45 @@ const useStyles = makeStyles((theme) => ({
 
 const Filters = (props) => {
     let location = useLocation()
-    const { FilterData, filterValueURL } = props
+    const { FilterData } = props
     console.log(location)
     const values = queryString.parse(location.search)
     console.log(values)
     let history = useHistory();
     const classes = useStyles();
-    const [CurrentSelectedTimePeroid, setCurrentSelectedTimePeroid] = useState((values.daterange !== undefined) ? values.daterange : 'All')
+    let tempDateRange = {
+        staticDate: null,
+            startDate: null,
+            endDate: null
+    }
+
+    if (values.daterange !== undefined && values.daterange.includes('To'))
+    {
+        console.log('In if')
+        tempDateRange = {
+            staticDate: null,
+            startDate: values.daterange.substring(0, values.daterange.indexOf('To')-1),
+            endDate: values.daterange.substring(values.daterange.indexOf('To')+3, values.daterange.length)
+        }
+    }
+    else if(values.daterange !== undefined)
+    {
+        tempDateRange = {
+            staticDate: values.daterange,
+            startDate: null,
+            endDate: null
+        }
+    }
+    let initialValueToSet;
+    if (tempDateRange.startDate !== null)
+    {
+        initialValueToSet = tempDateRange.startDate.toString().substring(0, 15) + ' To '  + tempDateRange.endDate.toString().substring(0, 15)    
+    }
+    else
+    {
+        initialValueToSet = tempDateRange.staticDate
+    }
+    const [CurrentSelectedTimePeriod, setCurrentSelectedTimePeriod] = useState((values.daterange !== undefined) ? initialValueToSet : 'All')
     const [openModal, setOpenModal] = useState(false)
     const [statusFilter, setstatusFilter] = useState(values.status)
     const handleChange = (event) => {
@@ -43,8 +75,16 @@ const Filters = (props) => {
         }
         else
         {
-            if (CurrentSelectedTimePeroid !== 'All') {
-                history.push(`/data?daterange=${CurrentSelectedTimePeroid}&status=${event.target.value}`);
+            if (CurrentSelectedTimePeriod !== 'All') {
+                if (CurrentSelectedTimePeriod.staticDate != null)
+                {
+                    history.push(`/data?daterange=${CurrentSelectedTimePeriod.staticDate}&status=${event.target.value}`);
+                }
+                else
+                {
+                    console.log(CurrentSelectedTimePeriod)
+                    history.push(`/data?daterange=${CurrentSelectedTimePeriod}&status=${event.target.value}`);
+                }
             }
             else {
                 history.push(`/data/?status=${event.target.value}`);
@@ -58,13 +98,38 @@ const Filters = (props) => {
     {
         setOpenModal(false)
     }
-    function handleDateFilter(filter)
+    function handleCustomRange(startDate, endDate)
     {
-        FilterData(filter,null)
-        setCurrentSelectedTimePeroid(filter)
+        let dateRange = {
+            staticDate: null,
+            startDate: startDate,
+            endDate: endDate
+        }
+        FilterData(dateRange, null)
+        setCurrentSelectedTimePeriod(startDate.toString().substring(0, 15) + ' To '  + endDate.toString().substring(0, 15))
+        console.log(startDate.toString().substring(0, 15))
         if (statusFilter !== undefined)
         {
-            history.push(`/data?daterange=${filter}&status=${statusFilter}`);
+            history.push(`/data?daterange=${startDate.toString().substring(0, 15)} To ${endDate.toString().substring(0, 15)}&status=${statusFilter}`);
+        }
+        else
+        {
+            history.push(`/data/?daterange=${startDate.toString().substring(0, 15)} To ${endDate.toString().substring(0, 15)}`);
+        }
+    }
+
+    function handleDateFilter(filter)
+    {
+        let dateRange = {
+            staticDate: filter,
+            startDate: null,
+            endDate: null
+        }
+        FilterData(dateRange,null)
+        setCurrentSelectedTimePeriod(filter)
+        if (statusFilter !== undefined)
+        {
+            history.push(`/data?daterange=${dateRange.staticDate}&status=${statusFilter}`);
         }
         else
         {
@@ -74,10 +139,10 @@ const Filters = (props) => {
     return (
         <div className='Filters'>
                         <div className='Calender'>
-                            <CalendarTodayOutlinedIcon fontSize='medium' color='action' id='calenderIcon'/>
-                            <span id='name'>{CurrentSelectedTimePeroid}</span>
-                            <LaunchIcon fontSize='inherit' color='action' id='launchIcon' onClick={handleTimePeriodChange} />
-                            <DateFilter openModal={openModal} closeModal={closeModal} handleDateFilter={handleDateFilter }></DateFilter>
+                            <CalendarTodayOutlinedIcon fontSize='default' color='action' id='calenderIcon'/>
+                            <span id='name'>{CurrentSelectedTimePeriod}</span>
+                            <LaunchIcon fontSize='inherit' color='secondary' id='launchIcon' onClick={handleTimePeriodChange} />
+                            <DateFilter openModal={openModal} closeModal={closeModal} handleDateFilter={handleDateFilter} handleCustomRange={handleCustomRange }></DateFilter>
                         </div>
                         <div className='StatusFilter'>
                             <FilterListOutlinedIcon fontSize='large' color='action' id='statusIcon'/>

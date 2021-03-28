@@ -10,7 +10,7 @@ import './Data_Table.css'
 import Loader from '../Components/Loader'
 import queryString from 'query-string'
 
-var statusMap = new Map();
+let statusMap = new Map();
 statusMap.set('Upcoming Launches', 'Upcoming')
 statusMap.set('Successful Launches', 'Success') 
 statusMap.set('Failed Launches', 'Failed') 
@@ -19,27 +19,55 @@ const Data_Table = (props) => {
     
     
     useEffect(() => {
-        async function fetchData() 
-        {
+        const timer =setTimeout(() => {
             fetchLaunchesData();
-        }
-        fetchData()
+        }, 5000); 
+        return () => clearTimeout(timer);
     }, [])
     
     let status = ''
     let currentRecords = []
     let match = ''
-    let { fetchLaunchesData, filteredData, updateIndex } = props
+    let { fetchLaunchesData, filteredData } = props
     let successfulLaunches = []
     let failedLaunches = []
     let upcomingLaunches = []
     let totalPages = 1
 
     const values = queryString.parse(props.location.search)
-    const[daterangeFilter, setDateRangeFilter] = useState((values.daterange !== undefined) ? values.daterange : '')
+    console.log(values.daterange)
+    let tempDateRange = {
+        staticDate: null,
+            startDate: null,
+            endDate: null
+    }
+    if (values.daterange !== undefined && values.daterange.includes('To'))
+    {
+        console.log('In if')
+        tempDateRange = {
+            staticDate: null,
+            startDate: values.daterange.substring(0, values.daterange.indexOf('To')-1),
+            endDate: values.daterange.substring(values.daterange.indexOf('To')+3, values.daterange.length)
+        }
+    }
+    else if(values.daterange !== undefined && values.daterange === 'All')
+    {
+        values.daterange = undefined
+    }
+    else if (values.daterange !== undefined)
+    {
+        tempDateRange = {
+            staticDate: values.daterange,
+            startDate: null,
+            endDate: null
+        }    
+    }
+    const[daterangeFilter, setDateRangeFilter] = useState((values.daterange !== undefined) ? tempDateRange : '')
     const [pageLimit] = useState(10)
-    const [currentPage, setCurrentPage] = useState((values.pageNumber !==  undefined) ? values.pageNumber : 1)
+    const [currentPage, setCurrentPage] = useState((values.pageNumber !== undefined) ? values.pageNumber : 1)
+    console.log(currentPage)
     const [offSet, setoffSet] = useState((currentPage - 1) * pageLimit)
+    console.log(offSet)
     const [statusFilter, setstatusFilter] = useState('')
     
     if (values.status !== undefined)
@@ -65,7 +93,7 @@ const Data_Table = (props) => {
             totalPages = filteredData.length / pageLimit + 1
         }
         match = {
-            path: `/data?pageNumber=${currentPage}`,
+            path: `/data?pageNumber=:pageNumber`,
             params: {
                 statusFilter: ''
             }
@@ -89,7 +117,7 @@ const Data_Table = (props) => {
             totalPages = failedLaunches.length / pageLimit
         }
         match = {
-            path: `/data?status=${status}&pageNumber=${currentPage}`,
+            path: `/data?status=${status}&pageNumber=:pageNumber`,
             params: {
                 statusFilter: statusFilter
             }
@@ -103,8 +131,17 @@ const Data_Table = (props) => {
             currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
             totalPages = tempData.length / pageLimit + 1    
         }
+        let initialValueToSet;
+        if (daterangeFilter.startDate !== null)
+        {
+            initialValueToSet = daterangeFilter.startDate.toString().substring(0, 15) + ' To '  + daterangeFilter.endDate.toString().substring(0, 15)    
+        }
+        else
+        {
+            initialValueToSet = daterangeFilter.staticDate
+        }
         match = {
-            path: `/data?daterange=${daterangeFilter}&pageNumber=${currentPage}`,
+            path: `/data?daterange=${initialValueToSet}&pageNumber=:pageNumber`,
             params: {
                 daterange: daterangeFilter
             }
@@ -118,7 +155,7 @@ const Data_Table = (props) => {
             if (tempData.length > 0)
             {
                 currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
-                totalPages = tempData.length / pageLimit + 1    
+                totalPages = tempData.length / pageLimit   
             }
         }
         else if (filteredData.length > 0 && status === 'Successful Launches') 
@@ -131,12 +168,21 @@ const Data_Table = (props) => {
         {
             let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Failed')
             currentRecords = (tempData.slice(offSet, offSet + pageLimit))
-            totalPages = tempData.length / pageLimit + 1
+            totalPages = tempData.length / pageLimit 
+        }
+        let initialValueToSet1;
+        if (daterangeFilter.startDate !== null)
+        {
+            initialValueToSet1 = daterangeFilter.startDate.toString().substring(0, 15) + ' To '  + daterangeFilter.endDate.toString().substring(0, 15)    
+        }
+        else
+        {
+            initialValueToSet1 = daterangeFilter.staticDate
         }
         match = {
-            path: `/data?daterange=${daterangeFilter}&status=${status}&pageNumber=${currentPage}`,
+            path: `/data?daterange=${initialValueToSet1}&status=${status}&pageNumber=:pageNumber`,
             params: {
-                daterange: daterangeFilter,
+                daterange: initialValueToSet1,
                 statusFilter: statusFilter
             }
         }
@@ -159,12 +205,12 @@ const Data_Table = (props) => {
             setDateRangeFilter(dataRangeFilter) 
         }
     }
-
+    
     function handlePageChange(page)
     {
         console.log(page)
         
-        var tempOffSet = (page - 1) * pageLimit
+        let tempOffSet = (page - 1) * pageLimit
         console.log(tempOffSet)
         setCurrentPage(page)
         setoffSet(tempOffSet)
@@ -173,7 +219,7 @@ const Data_Table = (props) => {
     if (filteredData.length > 0) {
         return (
             <div>
-                <Filters FilterData={FilterData}/>
+                <Filters currentPage={ currentPage} FilterData={FilterData}/>
                 {currentRecords.length > 0} ? <DataTableHelper records={currentRecords} handlePageChange={handlePageChange} filter={status} totalPages={totalPages} match={ match} currentpage={currentPage}/> : <p></p>
             </div>
             
@@ -183,7 +229,6 @@ const Data_Table = (props) => {
         return (
             <div className="Loader">
                 <Loader />
-                
             </div>
         );
 

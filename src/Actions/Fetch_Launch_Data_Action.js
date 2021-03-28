@@ -25,11 +25,11 @@ export const fetchData = () => {
         dispatch(dataFetchRequest())
         axios.get('https://api.spacexdata.com/v3/launches')
         .then(response => {
-            var data = response.data
+            let data = response.data
             dispatch(dataFetchSuccess(data))
         })
             .catch(error => {
-        var errors = error.message
+        let errors = error.message
             dispatch(dataFetchFailure(errors))
         })   
     }

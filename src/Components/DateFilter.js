@@ -1,15 +1,20 @@
+import {useState} from 'react'
 import CancelIcon from '@material-ui/icons/Cancel';
+import Button from '@material-ui/core/Button';
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import './DateFilter.css'
-const DateFilter = ({ openModal, closeModal,handleDateFilter }) => {
-    var allStaticilters = [];
-    allStaticilters.push('Past Week')
-    allStaticilters.push('Past Month')
-    allStaticilters.push('Past 3 Months')
-    allStaticilters.push('Past 6 Months')
-    allStaticilters.push('Past Year')
-    allStaticilters.push('Past 2 Years')
+const DateFilter = ({ openModal, closeModal, handleDateFilter, handleCustomRange }) => {
+    const [CustomStartDate, setCustomStartDate] = useState(new Date())
+    const [CustomEndDate, setCustomEndDate] = useState(new Date())
+    let allStaticFilters = [];
+    allStaticFilters.push('All')
+    allStaticFilters.push('Past Week')
+    allStaticFilters.push('Past Month')
+    allStaticFilters.push('Past 3 Months')
+    allStaticFilters.push('Past 6 Months')
+    allStaticFilters.push('Past Year')
+    allStaticFilters.push('Past 2 Years')
 
     function handleClose()
     {
@@ -19,6 +24,19 @@ const DateFilter = ({ openModal, closeModal,handleDateFilter }) => {
         handleDateFilter(data)
         closeModal(false)
     }
+    function setStartDate(startDay)
+    {
+        setCustomStartDate(startDay)
+    }
+    function setEndDate(endDay)
+    {
+        setCustomEndDate(endDay)
+    }
+    function handleCustomDateRangeChange()
+    {
+        handleCustomRange(CustomStartDate, CustomEndDate);
+        closeModal(false)
+    }
     if (openModal)
     {
         return (
@@ -26,18 +44,30 @@ const DateFilter = ({ openModal, closeModal,handleDateFilter }) => {
             <div className="filter-main">
                 <div className='StandardFilter'> 
                     {
-                            allStaticilters && allStaticilters.map((data, index) => (
+                            allStaticFilters && allStaticFilters.map((data) => (
                                 <span onClick={() => setDateFilter(data)}>{ data }</span>  
                         ))
                     }
-                            
                 </div>
                 <hr />
+                
                     <div className='CustomFilter'>
-                        <Calendar className='Calender1'/>
-                        <Calendar className='Calender1'/>
-                    <CancelIcon color='secondary' onClick={handleClose} className='closeIcon' />  
-                </div>
+                        <div>
+                            <h3>Select Date Ranges Manually</h3>
+                            <div className='CalenderD'>
+                                <Calendar className='CalenderStart' value={CustomStartDate } onClickDay={(day) => setStartDate(day)} />
+                                <hr />
+                                <Calendar className='CalenderEnd' value={CustomEndDate } onClickDay={(day) => setEndDate(day)} />
+                            </div>
+                            <div className='SetRange'>
+                                <Button variant="contained" color="primary" onClick={handleCustomDateRangeChange}>
+                                    Apply Date Range
+                                </Button>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div><CancelIcon color='secondary' onClick={handleClose} className='closeIcon' />  </div> 
             </div>
         </div>
     )
@@ -45,7 +75,7 @@ const DateFilter = ({ openModal, closeModal,handleDateFilter }) => {
     else
     {
         return null
-        }
+    }
 }
 
 export default DateFilter

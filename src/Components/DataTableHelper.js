@@ -1,5 +1,4 @@
 import { indexfetch } from '../Actions/Index_Selection_Action'
-import { useEffect} from 'react'
 import { connect } from "react-redux"
 import Row from './Row'
 import Pagination from 'react-router-pagination'
@@ -9,10 +8,7 @@ import './DataTableHelper.css'
 const DataTableHelper = ({ records, updateIndex, handlePageChange, totalPages, match, currentpage }) => {
     
     
-    var pageNumber = currentpage
-    useEffect(() => {
-        console.log("value of 'match' changed to", match);
-    }, [match]);
+    let pageNumber = currentpage
 
     function handleRowClick(e) {
         updateIndex(e)
@@ -32,6 +28,7 @@ const DataTableHelper = ({ records, updateIndex, handlePageChange, totalPages, m
         <div>
             <div className="data_table">
                 <table>
+                    <thead>
                     <tr>
                         <th>No:</th>
                         <th>Launched(UTC)</th>
@@ -41,12 +38,14 @@ const DataTableHelper = ({ records, updateIndex, handlePageChange, totalPages, m
                         <th>Launch Status</th>
                         <th>Rocket</th>
                     </tr> 
-                    
+                    </thead>
+                    <tbody>
                         {
                             records && records.map((data,index) => (
-                                <Row data={data} index={index} handleClick={ handleRowClick}/>
+                                <Row data={data} key={ index}index={index} handleClick={ handleRowClick}/>
                             ))
                         }
+                    </tbody>
                 </table>   
             </div>
             <div className='Paginate'>

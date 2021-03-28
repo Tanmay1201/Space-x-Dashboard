@@ -5,7 +5,7 @@ const initialState = {
     data: [],
     error: []
 }
-var month_number_name_map = new Map();
+let month_number_name_map = new Map();
 month_number_name_map.set('01', 'Jan')
 month_number_name_map.set('02', 'Feb') 
 month_number_name_map.set('03', 'Mar') 
@@ -44,14 +44,14 @@ const Fetch_Launch_Data = (state = initialState, action) => {
 }
 
 const Extract_Table_Data = (state) => {
-    var extracted_data = []
-    var tempDataObj = null
-    var temp = state.FetchLaunchData.data
+    let extracted_data = []
+    let tempDataObj = null
+    let temp = state.FetchLaunchData.data
     if (temp != null)
     {
-        for (var i = 0; i < temp.length; i++)
+        for (let i = 0; i < temp.length; i++)
         {
-            var date = temp[i].launch_date_utc.substring(8, 10);
+            let date = temp[i].launch_date_utc.substring(8, 10);
             if (month_number_name_map.has(temp[i].launch_date_utc.substring(5, 7)))
             {
                 date += ' '+month_number_name_map.get(temp[i].launch_date_utc.substring(5, 7))    
@@ -60,7 +60,7 @@ const Extract_Table_Data = (state) => {
             date += ' at'
             date += ' '+temp[i].launch_date_utc.substring(11, 16)
 
-            var launchStatus = '';
+            let launchStatus = '';
             if (temp[i].upcoming === false)
             {
                 if (temp[i].launch_success === false)  
@@ -92,14 +92,14 @@ const Extract_Table_Data = (state) => {
 }
 
 const Extract_Modal_Data = (state) => {
-    var extracted_data = []
-    var tempDataObj = null
-    var temp = state.FetchLaunchData.data
+    let extracted_data = []
+    let tempDataObj = null
+    let temp = state.FetchLaunchData.data
     if (temp != null)
     {
-        for (var i = 0; i < temp.length; i++)
+        for (let i = 0; i < temp.length; i++)
         {
-            var date = temp[i].launch_date_utc.substring(8, 10);
+            let date = temp[i].launch_date_utc.substring(8, 10);
             if (month_number_name_map.has(temp[i].launch_date_utc.substring(5, 7)))
             {
                 date += ' '+month_number_name_map.get(temp[i].launch_date_utc.substring(5, 7))    
@@ -107,7 +107,7 @@ const Extract_Modal_Data = (state) => {
             date += ' '+temp[i].launch_date_utc.substring(0, 4)
             date += ' '+temp[i].launch_date_utc.substring(11, 16)
 
-            var launchStatus = '';
+            let launchStatus = '';
             if (temp[i].upcoming === false)
             {
                 if (temp[i].launch_success === false)  

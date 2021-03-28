@@ -1,7 +1,7 @@
 export function Extract_Table_Data(state){
-    var extracted_data = []
-    var tempDataObj = null
-    for (var i = 0; i < state.FetchLaunchData.length; i++)
+    let extracted_data = []
+    let tempDataObj = null
+    for (let i = 0; i < state.FetchLaunchData.length; i++)
     {
         tempDataObj = {
             mission_name: state.FetchLaunchData.data[i].mission_name
