@@ -37,6 +37,24 @@ export const getDateFilteredData = (filteredData, dateFilter, statusfilter) => {
     console.log(dateFilter)
     if (dateFilter.staticDate != null && dateFilter.startDate == null && dateFilter.endDate == null)
     {
+        if (dateFilter.staticDate === 'All')
+        {
+            if (statusfilter === null)
+            {
+                return filteredData
+            }
+            else
+            {
+                for (let i = 0; i < filteredData.length; i++)
+                {
+                    if(filteredData[i].launch_status === statusfilter)
+                    {
+                        tempData.push(filteredData[i])
+                    }
+                }
+            }
+            return tempData
+        }
         let days = DaysNumberMap.get(dateFilter.staticDate)
         let date = new Date();
         date.setDate(date.getDate() - days);

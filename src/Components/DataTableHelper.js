@@ -43,11 +43,16 @@ const DataTableHelper = ({ records, updateIndex, handlePageChange, totalPages, m
                         {
                             records && records.map((data,index) => (
                                 <Row data={data} key={ index}index={index} handleClick={ handleRowClick}/>
-                            ))
+                            )) 
                         }
                     </tbody>
                 </table>   
             </div>
+            
+            {
+                records.length === 0 ? <div className='NoData'><span>No Results found for the specifies filter</span></div>: ''
+                }
+                
             <div className='Paginate'>
                 <Pagination match={match} totalPages={totalPages} pageNumber={pageNumber} spread={3} onClick={ handlePageClick}/>
             </div>

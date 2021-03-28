@@ -21,7 +21,7 @@ const Data_Table = (props) => {
     useEffect(() => {
         const timer =setTimeout(() => {
             fetchLaunchesData();
-        }, 5000); 
+        }, 4500); 
         return () => clearTimeout(timer);
     }, [])
     
