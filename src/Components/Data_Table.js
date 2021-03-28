@@ -155,20 +155,20 @@ const Data_Table = (props) => {
             if (tempData.length > 0)
             {
                 currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
-                totalPages = tempData.length / pageLimit   
+                totalPages = Math.ceil(tempData.length / pageLimit) 
             }
         }
         else if (filteredData.length > 0 && status === 'Successful Launches') 
         {
             let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Success')
             currentRecords = (tempData.slice(offSet, offSet + pageLimit))  
-            totalPages = tempData.length / pageLimit + 1
+            totalPages = Math.ceil(tempData.length / pageLimit)
         }
         else if (filteredData.length > 0 && status === 'Failed Launches') 
         {
             let tempData = getDateFilteredData(filteredData, daterangeFilter, 'Failed')
             currentRecords = (tempData.slice(offSet, offSet + pageLimit))
-            totalPages = tempData.length / pageLimit 
+            totalPages = Math.ceil(tempData.length / pageLimit) 
         }
         let initialValueToSet1;
         if (daterangeFilter.startDate !== null)
