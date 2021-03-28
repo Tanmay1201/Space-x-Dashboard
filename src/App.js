@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Header />
           <Switch>
-            <Route path={'/data'} component={Data_Table} />
+            <Route path={'/'} component={Data_Table} />
           </Switch>
         <Modal />
     </BrowserRouter>
