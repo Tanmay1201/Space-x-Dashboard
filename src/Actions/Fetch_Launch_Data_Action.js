@@ -1,5 +1,6 @@
 import { DATA_FETCH_FAILURE, DATA_FETCH_REQUEST, DATA_FETCH_SUCCESS } from "../Actions/ActionTypes"
-import axios from  "axios"
+import axios from "axios"
+
 export const dataFetchRequest = () => {
     return {
         type: DATA_FETCH_REQUEST,

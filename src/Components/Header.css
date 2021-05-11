@@ -1,49 +1,30 @@
 #header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* this is what centers your element in the fixed wrapper*/
   display: flex;
-  justify-content: center;
+  flex-flow: column nowrap;
+  justify-content: center; /* aligns on vertical for column */
+  align-items: center; /* aligns on horizontal for column */
+  border-bottom: 2px solid #A7A9AC;
+  background: white;
+  z-index: 10;
+  
 }
-#logo-container {
-  margin-bottom: 4%;
-}
-.spacelogo {
-  position: absolute;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/d/de/SpaceX-Logo.svg")
-    no-repeat;
-  width: 40px;
-  height: 40px;
-  margin-top: 5px;
-  margin-left: 50px;
-}
-
-#spacelogos {
-  left: 35%;
+#first {
+  font-size: 50px;
+  font-family: 'initial';
+  color: #005288;
+  font-weight: 600;
 }
 
-#spacelogop {
-  left: 38%;
-  background-position: -47px 0px;
+#last {
+  font-size: 50px;
+  font-family: 'cursive';
+  color:  #A7A9AC;
 }
+.inner {
 
-#spacelogoa {
-  left: 41%;
-  background-position: -85px 0px;
-}
-
-#spacelogoc {
-  left: 44%;
-  background-position: -132px 0px;
-}
-
-#spacelogoe {
-  left: 47%;
-  background-position: -178px 0px;
-}
-
-#spacelogox {
-  width: 60px;
-  left: 50%;
-  background-position: -222px 0px;
-}
-hr {
-  background-position: -222px 0px;
 }

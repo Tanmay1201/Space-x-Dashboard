@@ -62,8 +62,14 @@
 }
 
 .SetRange {
-  margin-top: 1%;
-  font-size: 20px;
+  height: 30px;
+  margin-top: 3%;
+  font-size: 12px;
   display: flex;
   justify-content: flex-end;
+}
+
+.headerD {
+  display: flex;
+  justify-content: space-evenly;
 }

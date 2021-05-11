@@ -1,8 +1,6 @@
 .Calender {
   display: flex;
-  justify-content: space-around;
-  width: 200px;
-  border-radius: 45%;
+  width: 350px;
   cursor: pointer;
 }
 
@@ -17,7 +15,7 @@
 }
 
 #calenderIcon {
-  margin-top: 10%;
+  margin-top: 20px;
 }
 
 #launchIcon {
@@ -31,7 +29,7 @@
 #name {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
-  margin-top: 10%;
-  margin-left: 2%;
-  color: gray;
+  margin-left: 10px;
+  margin-top: 20px;
+  color:  black;
 }

@@ -6,7 +6,6 @@ import NativeSelect from '@material-ui/core/NativeSelect';
 import InputLabel from '@material-ui/core/InputLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from "react-router-dom";
-import LaunchIcon from '@material-ui/icons/Launch';
 import DateFilter from './DateFilter'
 import queryString from 'query-string'
 import './Filters.css'
@@ -38,7 +37,6 @@ const Filters = (props) => {
 
     if (values.daterange !== undefined && values.daterange.includes('To'))
     {
-        console.log('In if')
         tempDateRange = {
             staticDate: null,
             startDate: values.daterange.substring(0, values.daterange.indexOf('To')-1),
@@ -137,10 +135,10 @@ const Filters = (props) => {
     }
     return (
         <div className='Filters'>
-                        <div className='Calender'>
-                            <CalendarTodayOutlinedIcon fontSize='default' color='action' id='calenderIcon'/>
-                            <span id='name'>{CurrentSelectedTimePeriod}</span>
-                            <LaunchIcon fontSize='inherit' color='secondary' id='launchIcon' onClick={handleTimePeriodChange} />
+                        <div className='Calender' >
+                            
+                            <CalendarTodayOutlinedIcon onClick={handleTimePeriodChange}fontSize='default' color='action' id='calenderIcon'/>
+                            <span id='name' onClick={handleTimePeriodChange}>{CurrentSelectedTimePeriod}</span>
                             <DateFilter openModal={openModal} closeModal={closeModal} handleDateFilter={handleDateFilter} handleCustomRange={handleCustomRange }></DateFilter>
                         </div>
                         <div className='StatusFilter'>

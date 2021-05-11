@@ -12,11 +12,12 @@
   position: fixed;
   background: white;
   width: 40%;
-  height: 95%;
+  height: 80%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 2%;
+  
 }
 
 .closeIcon {
@@ -29,10 +30,9 @@
 }
 
 .MissionStatus {
-  display: flex;
   margin-left: 3%;
   justify-items: left;
-  width: 50%;
+  width: 100%;
 }
 
 .CloseButton {
@@ -43,8 +43,7 @@
 .Mission_Name {
   font-size: 20px;
   color: #000000;
-  font-family: Georgia, "Times New Roman", Times, serif;
-  padding: 1%;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .Rocket_Name {
@@ -60,9 +59,8 @@
   width: 20%;
 }
 
-.Status,
 .Mission_Name {
-  margin-top: 10%;
+  margin-top: 2%;
 }
 .Links {
   display: flex;
@@ -103,10 +101,8 @@ a:visited {
 
 .DataPayload {
   display: flex;
-  justify-content: left;
-  justify-items: stretch;
   margin-left: 4%;
-  width: 50%;
+  width: 90%;
   font-size: 12px;
 }
 hr {
@@ -114,9 +110,6 @@ hr {
   margin-bottom: 1%;
   margin-left: 4%;
   margin-right: 4%;
-}
-.Value {
-  padding-left: 20%;
 }
 .DataPayload > .RocketTypeValue {
   padding-left: 24%;
@@ -149,4 +142,15 @@ hr {
 .DataPayload > .LaunchSiteValue {
   padding-left: 25%;
   font-size: 12px;
+}
+
+.Key {
+  width: 30%;
+}
+
+.Mapping {
+  width: 50%;
+  left: 0;
+  display: flex;
+  justify-content: flex-start;
 }

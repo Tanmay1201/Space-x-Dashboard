@@ -218,9 +218,9 @@ const Data_Table = (props) => {
     }
     if (filteredData.length > 0) {
         return (
-            <div>
+            <div className="Head">
                 <Filters currentPage={ currentPage} FilterData={FilterData}/>
-                {currentRecords.length > 0} ? <DataTableHelper records={currentRecords} handlePageChange={handlePageChange} filter={status} totalPages={totalPages} match={ match} currentpage={currentPage}/> : <p></p>
+                {currentRecords.length > 0  ? <DataTableHelper records={currentRecords} handlePageChange={handlePageChange} filter={status} totalPages={totalPages} match={ match} currentpage={currentPage}/> : <p></p>}
             </div>
             
         )

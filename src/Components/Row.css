@@ -1,6 +1,6 @@
 td {
   text-align: center;
-  padding: 1%;
+  padding: 0.7%;
   background-color: white;
   cursor: pointer;
 }
@@ -8,6 +8,7 @@ td {
 #location,
 #mission {
   text-align: left;
+  width: 50px;
 }
 
 #EmptyData {

@@ -38,13 +38,13 @@ const Row = ({ data, index, handleClick }) => {
     return (
         <>
             <tr onClick={handleClickRow} className="Row">
-                <td>{data.number}</td>
-                <td>{data.launch_date_utc}</td>
+                <td style={{width:'5px'}}>{data.number}</td>
+                <td style={{width:'10px'}}>{data.launch_date_utc}</td>
                 <td id="location">{data.location}</td>
                 <td id="mission">{data.mission_name}</td>
-                <td>{data.orbit}</td>
-                <td ><div id="status" style={inputStyle}>{data.launch_status}</div></td>
-                <td>{data.rocket}</td>
+                <td style={{width:'10px'}}>{data.orbit}</td>
+                <td style={{width:'10px'}}><div id="status" style={inputStyle}>{data.launch_status}</div></td>
+                <td style={{width:'10px'}}>{data.rocket}</td>
             </tr>
             
         </>

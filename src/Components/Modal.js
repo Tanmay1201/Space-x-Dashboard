@@ -21,9 +21,9 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     backgroundColor: '#ffb3b3',
                     borderRadius: '45%',
                     color: 'Red',
-                    padding: '4%',
-                    height: '17px',
-                    fontSize: 'medium'
+                    padding: '8px',
+                    fontSize: '12px',
+                    marginLeft: '3px'
                 }
             }
             else  if (launch_description[index_data].launch_status === 'Success')
@@ -32,9 +32,9 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     backgroundColor: '#b3ffcc',
                     borderRadius: '45%',
                     color: '#009900',
-                    padding: '4%',
-                    height: '17px',
-                    fontSize: 'medium'
+                    padding: '8px',
+                    fontSize: '12px',
+                    marginLeft: '3px'
                 }
             }
             else {
@@ -42,9 +42,9 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                     backgroundColor: '#fff0b3',
                     borderRadius: '45%',
                     color: '#ffad33',
-                    padding: '4%',
-                    height: '17px',
-                    fontSize: 'medium'
+                    padding: '8px',
+                    fontSize: '12px',
+                    marginLeft: '3px'
                 }
             }   
         }
@@ -53,8 +53,10 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                 <div className="modal-main">
                     <div className='Header'>
                         <div className="MissionStatus">
-                            <span className="Mission_Name">{launch_description[index_data].mission_name}</span>
-                            <span className="Status" style={inputStyle}>{launch_description[index_data].launch_status}</span>
+                            <div className="Mission_Name">
+                                {launch_description[index_data].mission_name}
+                                <span className="Status" style={inputStyle}>{launch_description[index_data].launch_status}</span>
+                            </div >
                         </div>
                         <div className='CloseButton'>
                             <CancelIcon color='secondary' onClick={closeModal} className='closeIcon' />
@@ -70,43 +72,93 @@ const Modal = ({ index_data, launch_description, updateIndex }) => {
                         <a href={launch_description[index_data].video_link}><YouTubeIcon color='primary' /></a>
                     </div>
                     <div className="Description">
-                        <span>{ launch_description[index_data].details}</span> <a href={launch_description[index_data].wikipedia_link}>Wikipedia</a>
+                        <span>{launch_description[index_data].details && launch_description[index_data].details.length>250 ? launch_description[index_data].details.substr(0,250)+ '...' : launch_description[index_data].details}</span> <a href={launch_description[index_data].wikipedia_link}>Wikipedia</a>
                     </div>
                     <div className="Details">
                         <div className="DataPayload">
-                            <span>Flight Number</span>
-                            <span className='Value'>{launch_description[index_data].flight_number}</span>
+                            <div className="Key">
+                                <span>Flight Number</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='Value'>{launch_description[index_data].flight_number}</span>
+                            </div>
+                            
                         </div>
                         <hr />
                         <div className="DataPayload">
-                            <span>Mission Name</span>
+                        <div className="Key">
+                        <span>Mission Name</span>
+                            </div>
+                            <div className="Mapping">
                             <span className='Value'>{launch_description[index_data].mission_name}</span>
+                            </div>
+                            
                         </div>
                         <hr />
                         <div className="DataPayload">
-                            <span>Rocket Type</span>
-                            <span className='RocketTypeValue'>{launch_description[index_data].rocket_type}</span>
+                            <div className="Key">
+                                <span>Rocket Type</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='RocketTypeValue'>{launch_description[index_data].rocket_type}</span>
+                            </div>
+                            
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Rocket Name</span><span className='RocketNameValue'>{launch_description[index_data].rocket_name}</span>
+                            <div className="Key">
+                                <span>Rocket Name</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='RocketNameValue'>{launch_description[index_data].rocket_name}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Manufacturer</span><span className='ManufacturerValue'>{launch_description[index_data].manufacturer}</span>
+                            <div className="Key">
+                                <span>Manufacturer</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='ManufacturerValue'>{launch_description[index_data].manufacturer}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Nationality</span><span className='NationalityValue'>{launch_description[index_data].nationality}</span>
+                            <div className="Key">
+                                <span>Nationality</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='NationalityValue'>{launch_description[index_data].nationality}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Launch Date</span><span className='LaunchDateValue'>{launch_description[index_data].launch_date_utc}</span>
+                            <div className="Key">
+                                <span>Launch Date</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='LaunchDateValue'>{launch_description[index_data].launch_date_utc}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Payload Type</span><span className='PayloadValue'>{launch_description[index_data].payload_type}</span>
+                            <div className="Key">
+                                <span>Payload Type</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='PayloadValue'>{launch_description[index_data].payload_type}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Orbit</span><span className='OrbitValue'>{launch_description[index_data].orbit}</span>
+                            <div className="Key">
+                                <span>Orbit</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='OrbitValue'>{launch_description[index_data].orbit}</span>
+                            </div>
                         </div><hr />
                         <div className="DataPayload">
-                            <span>Launch Site</span><span className='LaunchSiteValue'>{launch_description[index_data].launch_site}</span>
+                            <div className="Key">
+                                <span>Launch Site</span>
+                            </div>
+                            <div className="Mapping">
+                                <span className='LaunchSiteValue'>{launch_description[index_data].launch_site}</span>
+                            </div>
                         </div>
                     </div>
             </div>

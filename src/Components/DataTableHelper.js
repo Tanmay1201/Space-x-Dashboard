@@ -30,13 +30,13 @@ const DataTableHelper = ({ records, updateIndex, handlePageChange, totalPages, m
                 <table>
                     <thead>
                     <tr>
-                        <th>No:</th>
-                        <th>Launched(UTC)</th>
-                        <th className="Location">Location</th>
-                        <th className="Mission">Mission</th>
-                        <th>Orbit</th>
-                        <th>Launch Status</th>
-                        <th>Rocket</th>
+                        <th style={{width:'20px'}}>No:</th>
+                        <th style={{width:'20px'}}>Launched(UTC)</th>
+                        <th style={{width:'20px'}} className="Location">Location</th>
+                        <th style={{width:'20px'}} className="Mission">Mission</th>
+                        <th style={{width:'20px'}}>Orbit</th>
+                        <th style={{width:'20px'}}>Launch Status</th>
+                        <th style={{width:'20px'}}>Rocket</th>
                     </tr> 
                     </thead>
                     <tbody>

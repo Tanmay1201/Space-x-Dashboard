@@ -53,17 +53,24 @@ const DateFilter = ({ openModal, closeModal, handleDateFilter, handleCustomRange
                 
                     <div className='CustomFilter'>
                         <div>
-                            <h3>Select Date Ranges Manually</h3>
-                            <div className='CalenderD'>
-                                <Calendar className='CalenderStart' value={CustomStartDate } onClickDay={(day) => setStartDate(day)} />
-                                <hr />
-                                <Calendar className='CalenderEnd' value={CustomEndDate } onClickDay={(day) => setEndDate(day)} />
+                        <div className='headerD'>
+                            <div>
+                                <h3>SELECT DATE RANGES MANUALLY</h3>
                             </div>
                             <div className='SetRange'>
                                 <Button variant="contained" color="primary" onClick={handleCustomDateRangeChange}>
                                     Apply Date Range
                                 </Button>
                             </div>
+                                
+                            </div>
+                            
+                            <div className='CalenderD'>
+                                <Calendar className='CalenderStart' value={CustomStartDate } onClickDay={(day) => setStartDate(day)} />
+                                <hr />
+                                <Calendar className='CalenderEnd' value={CustomEndDate } onClickDay={(day) => setEndDate(day)} />
+                            </div>
+                            
                         </div>
                        
                     </div>

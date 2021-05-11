@@ -16,6 +16,7 @@ table {
 }
 
 .Loader {
+  
   display: flex;
   justify-content: center;
   margin-top: 5%;
@@ -63,4 +64,7 @@ li a {
   padding: 14px 16px;
   text-decoration: none;
   border: 1px solid #ebebe0;
+}
+.Head {
+  margin-top: 70px;
 }
